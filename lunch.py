@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import os
 import sys
+from collections import defaultdict
 
 import yaml
 
@@ -17,10 +18,10 @@ def main(lunch_yml_path):
         lunch_list = yaml.load(f)
 
     # Collect summary
-    orders_by_customer = {}
+    orders_by_customer = defaultdict(list)
     for customer, items in lunch_list["orders"].items():
         for item in items:
-            orders_by_customer.setdefault(item, []).append(customer)
+            orders_by_customer[item].append(customer)
 
     # Show Item summary
     print_bar("Item Summary")
